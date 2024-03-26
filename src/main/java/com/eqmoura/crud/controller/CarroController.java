@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.eqmoura.crud.models.Carro;
 import com.eqmoura.crud.repository.CarroRepository;
+import com.eqmoura.crud.util.ValidaPlaca;
 
 @Controller
 public class CarroController {
@@ -19,11 +20,21 @@ public class CarroController {
     public String salvarCarro(@RequestParam("modelo") String modelo, @RequestParam("fabricante") String fabricante,
             @RequestParam("placa") String placa, Model m) {
 
+        String resultado = "O cadastro do veiculo falhou!";
+
         Carro carro = new Carro(modelo, fabricante, placa, null);
 
-        carroRepository.save(carro);
+        if (ValidaPlaca.validarPlaca(placa)) {
 
-        m.addAttribute("carro", carro);
+            carroRepository.save(carro);
+
+            resultado = "Carro cadastrado com sucesso";
+
+        } else {
+            resultado = "Placa invalida!";
+        }
+
+        m.addAttribute("resultado", resultado);
 
         return "sucesso_carro";
     }
