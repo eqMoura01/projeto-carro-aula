@@ -23,9 +23,15 @@ public class CarroJdbc implements CarroRepository {
     }
 
     @Override
-    public List findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+    public List<Carro> findAll() {
+        String query = "select * from entrada";
+
+        return jdbcTemplate.query(query, (response, rowNum) -> {
+            Carro carro = new Carro(response.getString("modelo"), response.getString("fabricante"),
+                    response.getString("placa"), response.getTimestamp("dataEntrada"));
+
+            return carro;
+        });
     }
 
     @Override
