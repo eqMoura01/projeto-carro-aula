@@ -27,7 +27,8 @@ public class CarroJdbc implements CarroRepository {
         String query = "select * from entrada";
 
         return jdbcTemplate.query(query, (response, rowNum) -> {
-            Carro carro = new Carro(response.getString("modelo"), response.getString("fabricante"),
+            Carro carro = new Carro(response.getLong("id"), response.getString("modelo"),
+                    response.getString("fabricante"),
                     response.getString("placa"), response.getTimestamp("dataEntrada"));
 
             return carro;
@@ -48,8 +49,12 @@ public class CarroJdbc implements CarroRepository {
 
     @Override
     public Carro findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        String query = "SELECT * FROM entrada WHERE id = ?";
+
+        @SuppressWarnings("deprecation")
+        Carro carro = jdbcTemplate.queryForObject(query, new Object[] { id }, new CarroRowMapper());
+
+        return carro;
     }
 
 }

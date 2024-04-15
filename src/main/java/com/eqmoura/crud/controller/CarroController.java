@@ -25,7 +25,7 @@ public class CarroController {
 
         String resultado = "O cadastro do veiculo falhou!";
 
-        Carro carro = new Carro(modelo, fabricante, placa, null);
+        Carro carro = new Carro(null, modelo, fabricante, placa, null);
 
         if (ValidaPlaca.validarPlaca(placa)) {
 
