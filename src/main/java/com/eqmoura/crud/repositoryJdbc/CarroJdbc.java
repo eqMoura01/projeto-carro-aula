@@ -10,7 +10,7 @@ import com.eqmoura.crud.models.Carro;
 import com.eqmoura.crud.repository.CarroRepository;
 
 @Repository
-public class CarroJdbc implements CarroRepository {
+public class CarroJdbc implements CarroRepository<Carro> {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -37,8 +37,8 @@ public class CarroJdbc implements CarroRepository {
 
     @Override
     public void update(Long id, Carro carro) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        String query = "update entrada set modelo = ?, fabricante = ?, placa = ? where id=?";
+        jdbcTemplate.update(query, carro.getModelo(), carro.getFabricante(), carro.getPlaca(), id);
     }
 
     @Override

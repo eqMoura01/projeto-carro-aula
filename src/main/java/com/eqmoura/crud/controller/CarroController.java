@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.eqmoura.crud.models.Carro;
@@ -49,5 +51,24 @@ public class CarroController {
         m.addAttribute("carros", carros);
 
         return "listaCarros";
+    }
+
+    @GetMapping("/carro/{id}")
+    public String findById(@PathVariable Long id, Model m) {
+
+        Carro carro = carroRepository.findById(id);
+
+        m.addAttribute("carro", carro);
+
+        return "CarroEditar";
+    }
+
+    @PostMapping("/carro_editar")
+    public String update(@RequestParam Long id, @RequestParam("modelo") String modelo,
+            @RequestParam("fabricante") String fabricante,
+            @RequestParam("placa") String placa, Model m) {
+        carroRepository.update(id, new Carro(id, modelo, fabricante, placa, null));
+
+        return "sucesso_carro";
     }
 }

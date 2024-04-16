@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar</title>
+</head>
+
+<body>
+    <form action="/carro_editar" method="post">
+        <input type="hidden" name="id" id="id" th:value="${carro.id}" required>
+        <div>
+            <label for="modelo">Modelo:</label>
+            <input type="text" id="modelo" name="modelo" th:value="${carro.modelo}" required>
+        </div>
+        <div>
+            <label for="fabricante">Fabricante:</label>
+            <input type="text" id="fabricante" name="fabricante" th:value="${carro.fabricante}" required>
+        </div>
+        <div>
+            <label for="placa">Placa:</label>
+            <input type="text" id="placa" name="placa" th:value="${carro.placa}" required>
+        </div>
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+
+</html>

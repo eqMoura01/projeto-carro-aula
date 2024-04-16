@@ -17,14 +17,19 @@
                 <td>Modelo</td>
                 <td>Placa</td>
                 <td>Data de entrada</td>
+                <td>Ações</td>
             </tr>
         </thead>
         <tbody>
             <tr th:each="carro: ${carros}">
-                <td th:text="${carro.fabricante}"></td>
+                <td th:text="${carro.fabricante}"></td> <!-- aqui nao tem get pra tu saber que n precisa do get -->
                 <td th:text="${carro.getModelo}"></td>
                 <td th:text="${carro.getPlaca}"></td>
                 <td th:text="${carro.getDataEntrada}"></td>
+                <td>
+                    <a th:href="@{'/carro/' + ${carro.id}}">Editar</a>
+                    <a th:href="@{'/carro/deletar/' + ${carro.id}}">Deletar</a>
+                </td>
             </tr>
         </tbody>
     </table>
