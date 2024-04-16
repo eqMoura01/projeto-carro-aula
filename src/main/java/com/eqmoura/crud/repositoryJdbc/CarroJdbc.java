@@ -42,12 +42,6 @@ public class CarroJdbc implements CarroRepository<Carro> {
     }
 
     @Override
-    public void deleteById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
-    }
-
-    @Override
     public Carro findById(Long id) {
         String query = "SELECT * FROM entrada WHERE id = ?";
 
@@ -57,4 +51,9 @@ public class CarroJdbc implements CarroRepository<Carro> {
         return carro;
     }
 
+    @Override
+    public void deleteById(Long id) {
+        String query = "delete from entrada where id = ?";
+        jdbcTemplate.update(query, id);
+    }
 }

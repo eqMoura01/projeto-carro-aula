@@ -69,6 +69,12 @@ public class CarroController {
             @RequestParam("placa") String placa, Model m) {
         carroRepository.update(id, new Carro(id, modelo, fabricante, placa, null));
 
-        return "sucesso_carro";
+        return "redirect:/listAll";
+    }
+
+    @GetMapping("/carro/deletar/{id}")
+    public String deleteById(@PathVariable Long id) {
+        carroRepository.deleteById(id);
+        return "redirect:/listAll";
     }
 }
